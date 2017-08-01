@@ -1,0 +1,23 @@
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+
+dependencies {
+	compile 'org.eclipse.jetty:jetty-server:9.4.6.v20170531'
+
+	compile 'io.micrometer:micrometer-prometheus-starter:latest.release'
+	compile 'io.prometheus:simpleclient_jetty:latest.release'
+}
