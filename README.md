@@ -1,0 +1,1 @@
+# micrometer-prometheus-nonspring-sample
