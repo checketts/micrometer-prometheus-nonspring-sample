@@ -1,5 +1,6 @@
 package io.micrometer.jettysample;
 
+import io.micrometer.core.instrument.prometheus.PrometheusMeterRegistry;
 import io.prometheus.client.CollectorRegistry;
 import io.prometheus.client.exporter.common.TextFormat;
 import org.eclipse.jetty.server.Request;
@@ -12,11 +13,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 public class PrometheusHandler extends AbstractHandler{
-  private final CollectorRegistry prometheusRegistry;
+  private final PrometheusMeterRegistry registry;
 
-  public PrometheusHandler(CollectorRegistry prometheusRegistry) {
 
-    this.prometheusRegistry = prometheusRegistry;
+  public PrometheusHandler(PrometheusMeterRegistry registry) {
+    this.registry = registry;
   }
 
   @Override
@@ -32,8 +33,7 @@ public class PrometheusHandler extends AbstractHandler{
     response.setContentType(TextFormat.CONTENT_TYPE_004);
     response.setStatus(HttpServletResponse.SC_OK);
 
-    PrintWriter out = response.getWriter();
-    TextFormat.write004(out, prometheusRegistry.metricFamilySamples());
+    response.getWriter().append(registry.scrape());
 
     baseRequest.setHandled(true);
   }

@@ -20,7 +20,7 @@ public class JettySampleApplication {
     server.setHandler(statisticsHandler);
 
     PrometheusMeterRegistry registry = new PrometheusMeterRegistry(CollectorRegistry.defaultRegistry);
-    handlers.addHandler(new PrometheusHandler(registry.getPrometheusRegistry()));
+    handlers.addHandler(new PrometheusHandler(registry));
     handlers.addHandler(new HelloHandler(registry));
 
     //TODO instrument via micrometer:
